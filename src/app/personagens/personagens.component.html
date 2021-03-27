@@ -1,0 +1,16 @@
+<h2>Turma</h2>
+<ul class="avatares">
+    <li *ngFor="let avatar of avatares" (click)="onSelect(avatar)"
+    [class.selected]="avatar === selectedAvatar">
+        <span class="badge">{{avatar.avatarId}}</span> {{avatar.name}}
+    </li>
+</ul>
+
+<div *ngIf="selectedAvatar">
+    <h2>{{selectedAvatar.name | uppercase}} Detalhes</h2>
+    <div><span>id: </span>{{selectedAvatar.avatarId}}</div>
+    <div>
+    <label for="avatar-name">Avatar: </label>
+    <input id="avatar-name" [(ngModel)]="selectedAvatar.name" placeholder="name">
+    </div>
+</div>

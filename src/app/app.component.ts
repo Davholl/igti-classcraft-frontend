@@ -10,6 +10,10 @@ export class AppComponent {
 
 ngOnInit()
 {
+
+    //Buscar estado atual do personagem e as suas opções de roupa
+    //Ter em outra parte da tela, ou em outra tela uma lojinha
+    
     console.log("window has loaded");
     this.state.i=1;
     this.state.j=1;
