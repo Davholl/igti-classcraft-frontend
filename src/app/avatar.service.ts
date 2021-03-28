@@ -1,26 +1,71 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Avatar } from './avatar';
 import { MessageService } from './message.service';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AVATARES } from './mock-avatares';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AvatarService {
 
+  private baseUrl = 'http://localhost:8080/'
+  private avatarUrl = 'avatar';
+
+  constructor(
+    private messageService: MessageService,
+    private http: HttpClient) { }
+
   getAvatar(id: number): Observable<Avatar> {
-    const avatar = AVATARES.find(h => h.avatarId === id) as Avatar;
-    this.messageService.add(`AvatarService: buscou avatar id=${id}`);
-    return of(avatar);
+    const headers = new HttpHeaders({
+      authorization: 'Basic ' + btoa("admin" + ':' + "password")
+    });
+    return this.http.get<Avatar>(this.baseUrl + this.avatarUrl + '/detalhar/' + id, {headers: headers}).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
 
-  constructor(private messageService: MessageService) { }
-
   getAvatares():Observable<Avatar[]> {
-    var avatares = of(AVATARES);
-    this.messageService.add('AvatarService: buscou avatares');
-    return avatares;
+
+    const headers = new HttpHeaders({
+      authorization: 'Basic ' + btoa("admin" + ':' + "password")
+    });
+    this.log('buscando avatares');
+    return this.http.get<Avatar[]>(this.baseUrl + this.avatarUrl + '/listar', {headers: headers}).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  handleError(error: { error: { message: any; }; status: any; message: any; }) {
+
+    let errorMessage = '';
+ 
+    if (error.error instanceof ErrorEvent) {
+ 
+      // client-side error
+ 
+      errorMessage = `Error: ${error.error.message}`;
+ 
+    } else {
+ 
+      // server-side error
+ 
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+ 
+    }
+ 
+    window.alert(errorMessage);
+ 
+    return throwError(errorMessage);
+ 
+  }
+
+  private log(message: string) {
+    this.messageService.add(`AvatarService: ${message}`);
   }
 
 }
