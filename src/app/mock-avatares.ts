@@ -1,4 +1,5 @@
-import { Avatar } from './avatar';
+import { Avatar } from "./dto/avatar";
+
 
 export const AVATARES: Avatar[] = [
   { avatarId: 11, name: 'Dr Nice', ouro: 1000.0 },

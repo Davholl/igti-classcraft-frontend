@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Avatar } from '../avatar';
 import { AvatarService } from '../avatar.service';
+import { Avatar } from '../dto/avatar';
 
 @Component({
   selector: 'app-dashboard',

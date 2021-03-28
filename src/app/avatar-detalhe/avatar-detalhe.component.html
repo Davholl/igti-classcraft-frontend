@@ -2,14 +2,14 @@
 
 <div *ngIf="avatar">
 
-    <h2>{{avatar.name | uppercase}} Details</h2>
+    <h2>{{avatar.name}} Detalhes</h2>
     <div><span>id: </span>{{avatar.avatarId}}</div>
     <div>
       <label for="avatar-name">Avatar name: </label>
       <input id="avatar-name" [(ngModel)]="avatar.name" placeholder="name">
     </div>
 
-    <div id="container">
+    <div id="container" (click)="updateAvatar()">
         <div id="background">
         <div id="hairback"></div>    
         <div id="man"> </div>

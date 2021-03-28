@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Avatar } from '../avatar';
 import { AvatarService } from '../avatar.service';
+import { Avatar } from '../dto/avatar';
 import { MessageService } from '../message.service';
-import {AVATARES} from '../mock-avatares';
 
 @Component({
   selector: 'app-personagens',

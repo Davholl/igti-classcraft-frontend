@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { Avatar } from './avatar';
 import { MessageService } from './message.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AVATARES } from './mock-avatares';
 import { catchError, retry } from 'rxjs/operators';
+import { Avatar } from './dto/avatar';
+import { AvatarVestidoDTO } from './dto/avatar-vestido-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,11 @@ export class AvatarService {
     private messageService: MessageService,
     private http: HttpClient) { }
 
-  getAvatar(id: number): Observable<Avatar> {
+  getAvatar(id: number): Observable<AvatarVestidoDTO> {
     const headers = new HttpHeaders({
       authorization: 'Basic ' + btoa("admin" + ':' + "password")
     });
-    return this.http.get<Avatar>(this.baseUrl + this.avatarUrl + '/detalhar/' + id, {headers: headers}).pipe(
+    return this.http.get<AvatarVestidoDTO>(this.baseUrl + this.avatarUrl + '/detalhar/' + id, {headers: headers}).pipe(
       retry(1),
       catchError(this.handleError)
     );
