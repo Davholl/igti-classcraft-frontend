@@ -5,27 +5,14 @@
     <title> Classcraft IGTI</title>
 <body>
 
-    <app-personagens></app-personagens>
+    <title> Classcraft IGTI</title>
+    <nav>
+        <a routerLink="/turma">Turma A</a>
+        <a routerLink="/dashboard">Dashboard</a>
+    </nav>
+    <router-outlet></router-outlet>
+    <app-messages></app-messages>
 
-
-    <div id="container">
-    <div id="background">
-    <div id="hairback"></div>    
-    <div id="man"> </div>
-    <div id="shoes"> </div>    
-    <div id="clothes"> </div>
-    <div id="hairfront"></div>
-    </div>
-        
-        
-        
-        <input type="button" value="NEXT" id="nexthair" (click)="nexthair()">
-        <input type="button" value="NEXT" id="nextdress"(click)="nextdress()">
-        <input type="button" value="NEXT" id="nextshoe" (click)="nextshoe()">
-    
-    </div>
-    
-    
     </body>
 
 </html>

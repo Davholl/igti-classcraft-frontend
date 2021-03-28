@@ -1,0 +1,8 @@
+<h2>Top Avatares</h2>
+<div class="avatar-menu">
+
+    <a *ngFor="let avatar of avatares" routerLink="/avatar/{{avatar.avatarId}}">
+        {{avatar.name}}
+    </a>
+
+</div>

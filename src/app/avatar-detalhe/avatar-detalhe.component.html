@@ -1,1 +1,29 @@
-<p>avatar-detalhe works!</p>
+<button (click)="retornar()">Retornar</button>
+
+<div *ngIf="avatar">
+
+    <h2>{{avatar.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{avatar.avatarId}}</div>
+    <div>
+      <label for="avatar-name">Avatar name: </label>
+      <input id="avatar-name" [(ngModel)]="avatar.name" placeholder="name">
+    </div>
+
+    <div id="container">
+        <div id="background">
+        <div id="hairback"></div>    
+        <div id="man"> </div>
+        <div id="shoes"> </div>    
+        <div id="clothes"> </div>
+        <div id="hairfront"></div>
+        </div>
+            
+            
+        <input type="button" value="NEXT" id="nexthair" (click)="nexthair()">
+        <input type="button" value="NEXT" id="nextdress"(click)="nextdress()">
+        <input type="button" value="NEXT" id="nextshoe" (click)="nextshoe()">
+        
+    </div>
+    
+  
+  </div>
