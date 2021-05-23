@@ -9,6 +9,11 @@
       <input id="avatar-name" [(ngModel)]="avatar.name" placeholder="name">
     </div>
 
+    
+    <div>
+      <input type="button" value="SALVAR" id="save" (click)="salvarAvatar()">
+    </div>
+
     <div id="container" (click)="updateAvatar()">
         <div id="background">
         <div id="hairback"></div>    
@@ -23,7 +28,6 @@
         <input type="button" value="NEXT" id="nextdress"(click)="nextdress()">
         <input type="button" value="NEXT" id="nextshoe" (click)="nextshoe()">
         
-    </div>
-    
+    </div>   
   
   </div>

@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   getAvatares(): void {
     this.heroService.getAvatares()
-      .subscribe(avatares => this.avatares = avatares.slice(1, 5));
+      .subscribe(avatares => this.avatares = avatares.slice(0, 5));
   }
 
 }
