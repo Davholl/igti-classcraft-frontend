@@ -44,6 +44,20 @@ export class AvatarService {
     );
   }
 
+  comprarItem(avatarId: number, equipamentoId: number): Observable<Object>  {
+    const headers = new HttpHeaders({
+      authorization: 'Basic ' + btoa("admin" + ':' + "password"),
+    });
+    console.log(avatarId, equipamentoId);
+    return this.http.post<Object>(this.baseUrl + this.avatarUrl + '/comprar', {headers: headers, 
+      avatarId: avatarId,
+      equipamentoId: equipamentoId
+      }).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   getAvatares():Observable<Avatar[]> {
 
     const headers = new HttpHeaders({

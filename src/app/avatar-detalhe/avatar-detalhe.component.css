@@ -164,16 +164,49 @@
     top:150px;
 }
 
+.showHairButton{  
+    position:absolute;
+    right:50px;
+    top:100px;
+}
+
+.hideHairButton{  
+    position:absolute;
+    display: none;
+}
+
 #nextdress{
     position:absolute;
     right:50px;
     top:400px;
 }
 
+.showDressButton{  
+    position:absolute;
+    right:50px;
+    top:350px;
+}
+
+.hideDressButton{  
+    position:absolute;
+    display: none;
+}
+
 #nextshoe{
     position:absolute;
     right:50px;
     top:750px;
+}
+
+.showShoeButton{  
+    position:absolute;
+    right:50px;
+    top:700px;
+}
+
+.hideShoeButton{  
+    position:absolute;
+    display: none;
 }
 
 #prevhair{

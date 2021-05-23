@@ -54,7 +54,7 @@ getAvatar(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.avatarService.getAvatar(Number(id))
       .subscribe(retorno => {
-        console.log(retorno)
+        console.log("getAvatar", retorno)
         this.avatarComInventario = retorno;
         this.avatar = retorno.avatarVestido.avatar
         this.state.corpoState = retorno.avatarVestido.corpo;
@@ -87,23 +87,68 @@ updateAvatar(): void {
     console.log("cabelo state:", this.state.cabeloState);
     var hairf = document.getElementById("hairfront");
     var hairb = document.getElementById("hairback");
+    var buyhairButton = document.getElementById("buyhair");
     console.log(hairb);
-    if (hairb != null && hairf != null) {
+    if (hairb != null && hairf != null && buyhairButton != null) {
       hairb.setAttribute("class", "hairback");
-      if (this.state.cabeloState === 4 && this.validarSePossuiItem(4)) {
+      if (this.state.cabeloState === 4) {
         hairf.setAttribute("class", "hairfront1");
-        this.avatarComInventario.avatarVestido.sapato = 4;
+        this.avatarComInventario.avatarVestido.cabelo = 4;
+        if (!this.validarSePossuiItem(4)){
+          buyhairButton.setAttribute("class", "showHairButton");
+        }else {
+          buyhairButton.setAttribute("class", "hideHairButton");
+        }
       }
-
-      else if (this.state.cabeloState === 5 && this.validarSePossuiItem(5)) {
+      else if (this.state.cabeloState === 5) {
         hairf.setAttribute("class", "hairfront2");
-        this.avatarComInventario.avatarVestido.sapato = 5;
+        this.avatarComInventario.avatarVestido.cabelo = 5;
+        if (!this.validarSePossuiItem(5)){
+          buyhairButton.setAttribute("class", "showHairButton");
+        }else {
+          buyhairButton.setAttribute("class", "hideHairButton");
+        }
       }
 
-      else if (this.state.cabeloState === 6 && this.validarSePossuiItem(6)) {
+      else if (this.state.cabeloState === 6) {
         hairf.setAttribute("class", "hairfront3");
-        this.avatarComInventario.avatarVestido.sapato = 6;
+        this.avatarComInventario.avatarVestido.cabelo = 6;
+        if (!this.validarSePossuiItem(6)){
+          buyhairButton.setAttribute("class", "showHairButton");
+        }else {
+          buyhairButton.setAttribute("class", "hideHairButton");
+        }
       }
+    }
+  }
+
+  public buyhair(){
+    if (this.avatarComInventario){
+      this.avatarService.comprarItem(this.avatarComInventario.avatarVestido.avatar.avatarId, this.avatarComInventario.avatarVestido.cabelo).subscribe(
+        retorno => {
+          this.getAvatar();
+        }
+      );
+    }
+  }
+
+  public buydress(){
+    if (this.avatarComInventario){
+      this.avatarService.comprarItem(this.avatarComInventario.avatarVestido.avatar.avatarId, this.avatarComInventario.avatarVestido.corpo).subscribe(
+        retorno => {
+          this.getAvatar();
+        }
+      );
+    }
+  }
+
+  public buyshoe(){
+    if (this.avatarComInventario){
+      this.avatarService.comprarItem(this.avatarComInventario.avatarVestido.avatar.avatarId, this.avatarComInventario.avatarVestido.sapato).subscribe(
+        retorno => {
+          this.getAvatar();
+        }
+      );
     }
   }
 
@@ -111,20 +156,36 @@ updateAvatar(): void {
     if (!this.avatarComInventario){return;}
     console.log("corpo state:", this.state.corpoState);
     var dress=document.getElementById("clothes");
-    if (dress != null){
-      if(this.state.corpoState===1 && this.validarSePossuiItem(1)){
+    var buydressButton = document.getElementById("buydress");
+    if (dress != null && buydressButton != null){
+      if(this.state.corpoState===1){
         dress.setAttribute("class","dress1");
         this.avatarComInventario.avatarVestido.corpo = 1;
+        if (!this.validarSePossuiItem(1)){
+          buydressButton.setAttribute("class", "showDressButton");
+        }else {
+          buydressButton.setAttribute("class", "hideDressButton");
+        }
       }
       else
-      if(this.state.corpoState===2 && this.validarSePossuiItem(2)){
+      if(this.state.corpoState===2){
         dress.setAttribute("class","dress2");
         this.avatarComInventario.avatarVestido.corpo = 2;
+        if (!this.validarSePossuiItem(2)){
+          buydressButton.setAttribute("class", "showDressButton");
+        }else {
+          buydressButton.setAttribute("class", "hideDressButton");
+        }
       }
       else
-      if(this.state.corpoState===3 && this.validarSePossuiItem(3)){
+      if(this.state.corpoState===3){
         dress.setAttribute("class","dress3");
         this.avatarComInventario.avatarVestido.corpo = 3;
+        if (!this.validarSePossuiItem(3)){
+          buydressButton.setAttribute("class", "showDressButton");
+        }else {
+          buydressButton.setAttribute("class", "hideDressButton");
+        }
       }
     }
   }
@@ -133,20 +194,36 @@ updateAvatar(): void {
     if (!this.avatarComInventario){return;}
     console.log("sapato state:", this.state.sapatoState);
     var shoe=document.getElementById("shoes");
-    if (shoe != null){
-      if(this.state.sapatoState===7 && this.validarSePossuiItem(7)){
+    var buyshoeButton = document.getElementById("buyshoe");
+    if (shoe != null && buyshoeButton != null){
+      if(this.state.sapatoState===7){
         shoe.setAttribute("class","shoe1");
         this.avatarComInventario.avatarVestido.sapato = 7;
+        if (!this.validarSePossuiItem(7)){
+          buyshoeButton.setAttribute("class", "showShoeButton");
+        }else {
+          buyshoeButton.setAttribute("class", "hideShoeButton");
+        }
       }
       else
-      if(this.state.sapatoState===8 && this.validarSePossuiItem(8)){
+      if(this.state.sapatoState===8){
         shoe.setAttribute("class","shoe2");
         this.avatarComInventario.avatarVestido.sapato = 8;
+        if (!this.validarSePossuiItem(8)){
+          buyshoeButton.setAttribute("class", "showShoeButton");
+        }else {
+          buyshoeButton.setAttribute("class", "hideShoeButton");
+        }
       }
       else
-      if(this.state.sapatoState===9 && this.validarSePossuiItem(9)){
+      if(this.state.sapatoState===9){
         shoe.setAttribute("class","shoe3");
         this.avatarComInventario.avatarVestido.sapato = 9;
+        if (!this.validarSePossuiItem(9)){
+          buyshoeButton.setAttribute("class", "showShoeButton");
+        }else {
+          buyshoeButton.setAttribute("class", "hideShoeButton");
+        }
       }
     }
   }
@@ -154,13 +231,8 @@ updateAvatar(): void {
 nextdress(): void
 {
   if (this.state.corpoState < this.ultimoCorpo){
-    if (this.validarSePossuiItem(this.state.corpoState + 1)){
       this.state.corpoState++;
       this.updateCorpo();
-    }else{
-      this.state.corpoState++;
-      this.nextdress();
-    }
   }else {
     this.state.corpoState = this.primeiroCorpo;
     this.updateCorpo();
@@ -170,13 +242,8 @@ nextdress(): void
 nextshoe()
 {
   if (this.state.sapatoState < this.ultimoSapato){
-    if (this.validarSePossuiItem(this.state.sapatoState + 1)){
       this.state.sapatoState++;
       this.updateSapato();
-    }else{
-      this.state.sapatoState++;
-      this.nextshoe();
-    }
   }else {
     this.state.sapatoState = this.primeiroSapato;
     this.updateSapato();
@@ -187,13 +254,8 @@ nextshoe()
 nexthair()
 {
   if (this.state.cabeloState < this.ultimoCabelo){
-    if (this.validarSePossuiItem(this.state.cabeloState + 1)){
       this.state.cabeloState++;
       this.updateCabelo();
-    }else{
-      this.state.cabeloState++;
-      this.nexthair();
-    }
   }else {
     this.state.cabeloState = this.primeiroCabelo;
     this.updateCabelo();
@@ -205,12 +267,19 @@ validarSePossuiItem(itemId: number){
 }
 
 salvarAvatar(){
+  console.log(this.avatarComInventario)
   if (this.avatarComInventario != undefined){
-    this.avatarService.salvarAvatar(this.avatarComInventario).subscribe(
-      retorno => {
-        
-      }
-    );
+    if (this.validarSePossuiItem(this.avatarComInventario.avatarVestido.cabelo)
+    && this.validarSePossuiItem(this.avatarComInventario.avatarVestido.corpo)
+    && this.validarSePossuiItem(this.avatarComInventario.avatarVestido.sapato)){
+      this.avatarService.salvarAvatar(this.avatarComInventario).subscribe(
+        retorno => {
+        }
+      );
+    }else {
+      alert("Você não pode salvar seu personagem com itens que não comprou")
+    }
+
   }
 }
 
